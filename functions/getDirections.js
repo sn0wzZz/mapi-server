@@ -1,6 +1,7 @@
 import fetch from 'node-fetch'
 
 export async function handler (req, res) {
+  res.send('Directions')
   const { latitude: latSt, longitude: lngSt } = req.body.origin
   const { latitude: latFn, longitude: lngFn } = req.body.destination
 
