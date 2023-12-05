@@ -209,6 +209,10 @@ router.get('/app', (req, res) => res.send('App running'))
 // app.use(cors({origin: '*'}))
 app.use(express.json())
 
+router.get('/', (req, res) => {
+  res.send('App is running..')
+})
+
 // StreetCoords API
 router.post('/getStreetCoords', getStreetCoordsHandler)
 
