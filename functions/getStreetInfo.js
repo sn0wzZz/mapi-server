@@ -1,7 +1,6 @@
 import fetch from 'node-fetch'
 
 export async function handler (req, res) {
-  res.send('StreetInfo')
   try {
     const { latitude, longitude } = req.body
     if (!latitude || !longitude) return

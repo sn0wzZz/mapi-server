@@ -1,7 +1,6 @@
 import fetch from 'node-fetch'
 
 export async function handler(req, res){
-  res.send('StreetCoords')
   try {
     const { number, name, city } = req.body.address
     if (!req.body.address) return
