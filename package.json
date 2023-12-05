@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "server": "nodemon app.js",
-    "build": "npm run compile"
+    "build": "netlify deploy --prod"
   },
   "type": "module",
   "author": "sn0wzZz",
