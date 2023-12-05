@@ -3,9 +3,9 @@ import cors from 'cors'
 import serverless from 'serverless-http'
 
 // Import individual route handlers
-import { handler as getStreetCoordsHandler } from './functions/getStreetCoords.js'
-import { handler as getStreetInfoHandler } from './functions/getStreetInfo.js'
-import { handler as getDirectionsHandler } from './functions/getDirections.js'
+import { handler as getStreetCoordsHandler } from './getStreetCoords.js'
+import { handler as getStreetInfoHandler } from './getStreetInfo.js'
+import { handler as getDirectionsHandler } from './getDirections.js'
 
 const app = express()
 
