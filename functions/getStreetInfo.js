@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 export async function handler (req, res) {
   try {
     const { latitude, longitude } = req.body
-    if (!latitude || !latitude) return
+    if (!latitude || !longitude) return
     const apiUrl = `https://trueway-geocoding.p.rapidapi.com/ReverseGeocode?location=${longitude}%2C%20${latitude}&language=en`
     const options = {
       method: 'GET',
