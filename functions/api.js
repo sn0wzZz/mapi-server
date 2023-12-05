@@ -200,18 +200,18 @@ import { handler as getStreetCoordsHandler } from './getStreetCoords.js'
 import { handler as getStreetInfoHandler } from './getStreetInfo.js'
 import { handler as getDirectionsHandler } from './getDirections.js'
 
-router.get('/', (req, res) => res.send('App running'))
-router.get('/getStreetCoords', (req, res) => res.send('StreetCoords'))
-router.get('/getStreetInfo', (req, res) => res.send('StreetInfo'))
-router.get('/getDirections', (req, res) => res.send('Directions'))
+// router.get('/', (req, res) => res.send('App running'))
+// router.get('/getStreetCoords', (req, res) => res.send('StreetCoords'))
+// router.get('/getStreetInfo', (req, res) => res.send('StreetInfo'))
+// router.get('/getDirections', (req, res) => res.send('Directions'))
 
 
 // app.use(cors({origin: '*'}))
 app.use(express.json())
 
-router.get('/', (req, res) => {
-  res.send('App is running..')
-})
+// router.get('/', (req, res) => {
+//   res.send('App is running..')
+// })
 
 // StreetCoords API
 router.post('/getStreetCoords', getStreetCoordsHandler)
