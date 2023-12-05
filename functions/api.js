@@ -230,7 +230,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Set up middleware
-app.use('/.netlify/functions/api', router)
+api.use('/.netlify/functions/', router)
 
 // Export the serverless app
 export const handler = serverless(app)
