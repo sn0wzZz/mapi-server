@@ -4,6 +4,8 @@ export async function handler(event, context) {
   try {
     const { number, name, city } = JSON.parse(event.body)
 
+    context.send('hello')
+
     if (!number || !name || !city) {
       return {
         statusCode: 400,

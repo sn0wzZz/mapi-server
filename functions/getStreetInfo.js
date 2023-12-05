@@ -4,6 +4,8 @@ export async function handler(event, context) {
   try {
     const { latitude, longitude } = JSON.parse(event.body)
 
+    event.send('StreetInfo')
+
     if (!latitude || !longitude) {
       return {
         statusCode: 400,
