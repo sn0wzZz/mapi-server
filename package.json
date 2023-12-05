@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "server": "nodemon app.js",
+    "server": "nodemon functions/app.js",
     "build": "netlify deploy --prod"
   },
   "type": "module",

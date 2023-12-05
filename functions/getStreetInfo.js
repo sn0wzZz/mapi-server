@@ -3,8 +3,7 @@ import fetch from 'node-fetch'
 export async function handler(event, context) {
   try {
     const { latitude, longitude } = JSON.parse(event.body)
-
-    event.send('StreetInfo')
+    console.log(longitude, latitude)
 
     if (!latitude || !longitude) {
       return {
