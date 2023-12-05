@@ -1,30 +1,39 @@
-import express from 'express'
-import cors from 'cors'
-import serverless from 'serverless-http'
+// import express from 'express'
+// import cors from 'cors'
+// import serverless from 'serverless-http'
 
-// Import individual route handlers
-import { handler as getStreetCoordsHandler } from './getStreetCoords.js'
-import { handler as getStreetInfoHandler } from './getStreetInfo.js'
-import { handler as getDirectionsHandler } from './getDirections.js'
+// // Import individual route handlers
+// import { handler as getStreetCoordsHandler } from './getStreetCoords.js'
+// import { handler as getStreetInfoHandler } from './getStreetInfo.js'
+// import { handler as getDirectionsHandler } from './getDirections.js'
 
-const app = express()
+// const app = express()
 
-const router = express.Router()
+// const router = express.Router()
 
-// Set up CORS and JSON middleware
-app.use(cors())
-app.use(express.json())
+// // Set up CORS and JSON middleware
+// app.use(cors())
+// app.use(express.json())
 
-// Define routes
-router.post('/getStreetCoords', getStreetCoordsHandler)
-router.post('/getStreetInfo', getStreetInfoHandler)
-router.post('/getDirections', getDirectionsHandler)
+// // Define routes
+// router.post('/getStreetCoords', getStreetCoordsHandler)
+// router.post('/getStreetInfo', getStreetInfoHandler)
+// router.post('/getDirections', getDirectionsHandler)
 
-// Set up middleware
-app.use('/.netlify/functions/app', router)
+// if (process.env.NODE_ENV !== 'production') {
+//   const port = 3000
+//   app.listen(port, () => {
+//     console.log(`Server is running at http://localhost:${port}`)
+//   })
+// }
 
-// Export the serverless app
-export const handler = serverless(app)
+// // Set up middleware
+// app.use('/.netlify/functions/app', router)
+
+// // Export the serverless app
+// export const handler = serverless(app)
+
+//////////////////////////////////////////////////////////////////////////////
 
 // import express, {Router} from 'express'
 // import serverless from 'serverless-http'
@@ -177,3 +186,46 @@ export const handler = serverless(app)
 
 // app.use('/app', router)
 // export const handler = serverless(app)
+
+import express, { Router } from 'express'
+import serverless from 'serverless-http'
+
+import cors from 'cors'
+
+const app = express()
+const router = Router()
+
+// Import individual route handlers
+import { handler as getStreetCoordsHandler } from './getStreetCoords.js'
+import { handler as getStreetInfoHandler } from './getStreetInfo.js'
+import { handler as getDirectionsHandler } from './getDirections.js'
+
+router.get('/getStreetCoords', (req, res) => res.send('StreetCoords'))
+router.get('/getStreetInfo', (req, res) => res.send('StreetInfo'))
+router.get('/getDirections', (req, res) => res.send('Directions'))
+
+
+app.use(cors())
+app.use(express.json())
+
+// StreetCoords API
+router.post('/getStreetCoords', getStreetCoordsHandler)
+
+// StreetInfo API
+router.post('/getStreetInfo', getStreetInfoHandler)
+
+// Directions API
+router.post('/getDirections', getDirectionsHandler )
+
+if (process.env.NODE_ENV !== 'production') {
+  const port = 3000
+  app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`)
+  })
+}
+
+// Set up middleware
+app.use('/.netlify/functions/app', router)
+
+// Export the serverless app
+export const handler = serverless(app)

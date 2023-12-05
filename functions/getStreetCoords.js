@@ -1,20 +1,12 @@
 import fetch from 'node-fetch'
 
-export async function handler(event, context) {
+export async function handler(req, res){
   try {
-    const { number, name, city } = JSON.parse(event.body)
-
-    if (!number || !name || !city) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: 'Invalid request parameters' }),
-      }
-    }
-
+    const { number, name, city } = req.body.address
+    if (!req.body.address) return
     const apiUrl = `https://trueway-geocoding.p.rapidapi.com/Geocode?address=${number}${formatString(
       name
     )}%2C${formatString(city)}&language=en`
-
     const options = {
       method: 'GET',
       headers: {
@@ -23,9 +15,10 @@ export async function handler(event, context) {
       },
     }
 
+    console.log('Received name:', req.body.address)
+
     const response = await fetch(apiUrl, options)
     const data = await response.json()
-
     if (data.results) {
       const searchResult = data.results.map((item) => {
         return {
@@ -38,22 +31,14 @@ export async function handler(event, context) {
         }
       })
 
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ searchResult }),
-      }
+      console.log(searchResult)
+      res.json({ searchResult })
     } else {
-      return {
-        statusCode: 404,
-        body: JSON.stringify({ error: 'Location not found', details: data }),
-      }
+      res.status(404).json({ error: 'Location not found', details: data })
     }
   } catch (error) {
     console.error('Error:', error)
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error' }),
-    }
+    res.status(500).json({ error: 'Internal Server Error' })
   }
 }
 

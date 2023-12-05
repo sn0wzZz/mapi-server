@@ -1,19 +1,10 @@
 import fetch from 'node-fetch'
 
-export async function handler(event, context) {
+export async function handler (req, res) {
   try {
-    const { latitude, longitude } = JSON.parse(event.body)
-    console.log(longitude, latitude)
-
-    if (!latitude || !longitude) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: 'Invalid request parameters' }),
-      }
-    }
-
+    const { latitude, longitude } = req.body
+    if (!latitude || !latitude) return
     const apiUrl = `https://trueway-geocoding.p.rapidapi.com/ReverseGeocode?location=${longitude}%2C%20${latitude}&language=en`
-
     const options = {
       method: 'GET',
       headers: {
@@ -22,31 +13,30 @@ export async function handler(event, context) {
       },
     }
 
+    console.log('Received coordinates:', { longitude, latitude })
+
     const response = await fetch(apiUrl, options)
     const data = await response.json()
+    console.log(data)
 
-    if (data.results && data.results[0]) {
-      const streetInfo = `${
-        data.results[0].street || data.results[0].locality
-      } ${data.results[0].house || ''}, ${data.results[0].region || ''}, ${
-        data.results[0].country || ''
-      }`
-
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ streetInfo }),
-      }
+    if (data.results) {
+      const streetInfo =
+        ((data.results[0].street || data.results[0].region) &&
+          `${
+            data.results[0].street === undefined ? '' : data.results[0].street
+          } ${data.results[0].house && data.results[0].house}${
+            data.results[0].street === undefined || !data.results[0].street
+              ? ''
+              : ', '
+          }${data.results[0].country || 'LOL'}`) ||
+        'No information found'
+      console.log(streetInfo)
+      res.json({ streetInfo })
     } else {
-      return {
-        statusCode: 404,
-        body: JSON.stringify({ error: 'Street info not found', details: data }),
-      }
+      res.status(404).json({ error: 'Location not found', details: data })
     }
   } catch (error) {
-    console.error(error)
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error' }),
-    }
+    console.error('Error:', error)
+    res.status(500).json({ error: 'Internal Server Error' })
   }
 }
