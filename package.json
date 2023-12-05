@@ -2,9 +2,9 @@
   "name": "mapi-server",
   "version": "1.0.0",
   "description": "",
-  "main": "functions/app.js",
+  "main": "functions/api.js",
   "scripts": {
-    "server": "nodemon functions/app.js",
+    "server": "nodemon functions/api.js",
     "build": "netlify deploy --prod"
   },
   "type": "module",

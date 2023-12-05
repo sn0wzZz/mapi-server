@@ -200,7 +200,7 @@ import { handler as getStreetCoordsHandler } from './getStreetCoords.js'
 import { handler as getStreetInfoHandler } from './getStreetInfo.js'
 import { handler as getDirectionsHandler } from './getDirections.js'
 
-router.get('/app', (req, res) => res.send('App running'))
+// router.get('/app', (req, res) => res.send('App running'))
 // router.get('/getStreetCoords', (req, res) => res.send('StreetCoords'))
 // router.get('/getStreetInfo', (req, res) => res.send('StreetInfo'))
 // router.get('/getDirections', (req, res) => res.send('Directions'))
@@ -230,7 +230,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Set up middleware
-app.use('/.netlify/functions/app', router)
+app.use('/.netlify/functions/api', router)
 
 // Export the serverless app
 export const handler = serverless(app)
