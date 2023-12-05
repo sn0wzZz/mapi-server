@@ -205,7 +205,7 @@ router.get('/getStreetInfo', (req, res) => res.send('StreetInfo'))
 router.get('/getDirections', (req, res) => res.send('Directions'))
 
 
-app.use(cors())
+app.use(cors({origin: '*'}))
 app.use(express.json())
 
 // StreetCoords API
