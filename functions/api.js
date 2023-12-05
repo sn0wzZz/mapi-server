@@ -200,10 +200,10 @@ import { handler as getStreetCoordsHandler } from './getStreetCoords.js'
 import { handler as getStreetInfoHandler } from './getStreetInfo.js'
 import { handler as getDirectionsHandler } from './getDirections.js'
 
-// router.get('/app', (req, res) => res.send('App running'))
-// router.get('/getStreetCoords', (req, res) => res.send('StreetCoords'))
-// router.get('/getStreetInfo', (req, res) => res.send('StreetInfo'))
-// router.get('/getDirections', (req, res) => res.send('Directions'))
+router.get('/', (req, res) => res.send('App running'))
+router.get('/getStreetCoords', (req, res) => res.send('StreetCoords'))
+router.get('/getStreetInfo', (req, res) => res.send('StreetInfo'))
+router.get('/getDirections', (req, res) => res.send('Directions'))
 
 
 // app.use(cors({origin: '*'}))
