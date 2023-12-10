@@ -4,6 +4,7 @@ export async function handler(event, context) {
   try {
     console.log('Request body:', event.body)
     const { queryStr } = JSON.parse(event.body)
+    // const { queryStr } = event.body
     console.log(queryStr)
 
     if (!queryStr) {
@@ -33,7 +34,7 @@ export async function handler(event, context) {
         const searchResult = data.predictions.map((item) => {
           return {
             id: `${new Date().getTime()}-${Math.floor(Math.random() * 1000)}`,
-            name: item.desctiption,
+            name: item.description,
           }
         })
 
@@ -56,10 +57,12 @@ export async function handler(event, context) {
   }
 }
 
+console.log(formatString('georgi izmirliev 5'))
+
 function formatString(str) {
   return str
     .split(' ')
-    .map((str, i) => '%20' + str)
+    .map((str, i) => i===0? str : '%20' + str)
     .join('')
 }
 
