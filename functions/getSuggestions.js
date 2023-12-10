@@ -62,6 +62,6 @@ export async function handler(event, context) {
 function formatString(str) {
   return str
     .split(' ')
-    .map((word, i) => (i === 0 ? word : '+' + word))
+    .map((word, i) => (i === 0 ? word : '%20' + word))
     .join('')
 }

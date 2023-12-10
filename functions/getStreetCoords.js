@@ -4,6 +4,8 @@ export async function handler(event, context) {
   try {
     const { address } = JSON.parse(event.body)
 
+    console.log(address)
+
     if (!address) {
       return {
         statusCode: 400,
@@ -13,7 +15,7 @@ export async function handler(event, context) {
 
     const apiUrl = `https://trueway-geocoding.p.rapidapi.com/Geocode?address=${formatString(
       address
-    )}%2C${formatString(city)}&language=en`
+    )}&language=en`
 
     const options = {
       method: 'GET',
@@ -51,6 +53,6 @@ export async function handler(event, context) {
 function formatString(str) {
   return str
     .split(' ')
-    .map((word, i) => (i === 0 ? word : '+' + word))
+    .map((word, i) => (i === 0 ? word : '%20' + word))
     .join('')
 }
