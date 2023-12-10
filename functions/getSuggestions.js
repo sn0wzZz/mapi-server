@@ -28,7 +28,8 @@ export async function handler(event, context) {
 
     
 
-      if (data.results) {
+      if (data.predictions) {
+        console.log(data.predictions)
         const searchResult = data.predictions.map((item) => {
           return {
             id: `${new Date().getTime()}-${Math.floor(Math.random() * 1000)}`,
