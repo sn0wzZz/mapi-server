@@ -3,9 +3,8 @@ import fetch from 'node-fetch'
 export async function handler(event, context) {
   try {
     console.log('Request body:', event.body)
-    const { queryStr } = JSON.parse(event.body)
-    // const { queryStr } = event.body
-    console.log(queryStr)
+    // const { queryStr } = JSON.parse(event.body)
+    const { queryStr } = event.body
 
     if (!queryStr) {
       return {
@@ -14,9 +13,10 @@ export async function handler(event, context) {
       }
     }
 
-    const apiUrl = `https://place-autocomplete1.p.rapidapi.com/autocomplete/json?input=${formatString(
-      queryStr
-    )}&radius=500`
+    // const apiUrl = `https://place-autocomplete1.p.rapidapi.com/autocomplete/json?input=${encodeURIComponent(formatString(
+    //   queryStr
+    // ))}&radius=500`
+    const apiUrl = 'https://place-autocomplete1.p.rapidapi.com/autocomplete/json?input=new&radius=500';
 
     const options = {
       method: 'GET',
@@ -29,7 +29,9 @@ export async function handler(event, context) {
     const response = await fetch(apiUrl, options)
     const data = await response.json()
 
-    if (data.predictions) {
+    console.log(data)
+
+    if (data) {
       console.log(data.predictions)
       const searchResult = data.predictions.map((item) => {
         return {
@@ -57,11 +59,9 @@ export async function handler(event, context) {
   }
 }
 
-console.log(formatString('georgi izmirliev 5'))
-
 function formatString(str) {
   return str
     .split(' ')
-    .map((word, i) => (i === 0 ? word : '%20' + word))
+    .map((word, i) => (i === 0 ? word : '+' + word))
     .join('')
 }

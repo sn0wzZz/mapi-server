@@ -2,17 +2,17 @@ import fetch from 'node-fetch'
 
 export async function handler(event, context) {
   try {
-    const { number, name, city } = JSON.parse(event.body)
+    const { address } = JSON.parse(event.body)
 
-    if (!number || !name || !city) {
+    if (!address) {
       return {
         statusCode: 400,
         body: JSON.stringify({ error: 'Invalid request parameters' }),
       }
     }
 
-    const apiUrl = `https://trueway-geocoding.p.rapidapi.com/Geocode?address=${number}${formatString(
-      name
+    const apiUrl = `https://trueway-geocoding.p.rapidapi.com/Geocode?address=${formatString(
+      address
     )}%2C${formatString(city)}&language=en`
 
     const options = {
@@ -27,16 +27,7 @@ export async function handler(event, context) {
     const data = await response.json()
 
     if (data.results) {
-      const searchResult = data.results.map((item) => {
-        return {
-          id: `${new Date().getTime()}-${Math.floor(Math.random() * 1000)}`,
-          name: `${
-            item.street ? `${item.street} ${item.house}` : `${item.locality}`
-          }, ${item.region && item.region}, ${item.country}`,
-          latitude: item.location.lat,
-          longitude: item.location.lng,
-        }
-      })
+      const searchResult = data.results[0].location
 
       return {
         statusCode: 200,
@@ -60,6 +51,6 @@ export async function handler(event, context) {
 function formatString(str) {
   return str
     .split(' ')
-    .map((str, i) => '%20' + str)
+    .map((word, i) => (i === 0 ? word : '+' + word))
     .join('')
 }
