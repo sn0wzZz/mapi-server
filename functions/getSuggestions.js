@@ -14,7 +14,9 @@ export async function handler(event, context) {
       }
     }
 
-    const apiUrl = `https://place-autocomplete1.p.rapidapi.com/autocomplete/json?input=${formatString(queryStr)}&radius=500`
+    const apiUrl = `https://place-autocomplete1.p.rapidapi.com/autocomplete/json?input=${formatString(
+      queryStr
+    )}&radius=500`
 
     const options = {
       method: 'GET',
@@ -27,27 +29,25 @@ export async function handler(event, context) {
     const response = await fetch(apiUrl, options)
     const data = await response.json()
 
-    
-
-      if (data.predictions) {
-        console.log(data.predictions)
-        const searchResult = data.predictions.map((item) => {
-          return {
-            id: `${new Date().getTime()}-${Math.floor(Math.random() * 1000)}`,
-            name: item.description,
-          }
-        })
-
+    if (data.predictions) {
+      console.log(data.predictions)
+      const searchResult = data.predictions.map((item) => {
         return {
-          statusCode: 200,
-          body: JSON.stringify({ searchResult }),
+          id: `${new Date().getTime()}-${Math.floor(Math.random() * 1000)}`,
+          name: item.description,
         }
-      } else {
-        return {
-          statusCode: 404,
-          body: JSON.stringify({ error: 'Location not found', details: data }),
-        }
+      })
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ searchResult }),
       }
+    } else {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: 'Location not found', details: data }),
+      }
+    }
   } catch (error) {
     console.error(error)
     return {
@@ -62,7 +62,6 @@ console.log(formatString('georgi izmirliev 5'))
 function formatString(str) {
   return str
     .split(' ')
-    .map((str, i) => i===0? str : '%20' + str)
+    .map((word, i) => (i === 0 ? word : '%20' + word))
     .join('')
 }
-

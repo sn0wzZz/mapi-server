@@ -23,7 +23,7 @@ router.post('/getStreetInfo', getStreetInfoHandler)
 router.post('/getDirections', getDirectionsHandler )
 
 // Suggestions API
-router.post('/getSuggestions', getStreetCoordsHandler )
+router.post('/getSuggestions', getSuggestionsHandler )
 
 if (process.env.NODE_ENV !== 'production') {
   const port = 3000
