@@ -13,7 +13,7 @@ export async function handler(event, context) {
       }
     }
 
-    const apiUrl = `https://trueway-geocoding.p.rapidapi.com/Geocode?address=${formatString(
+    const apiUrl = `https://trueway-geocoding.p.rapidapi.com/Geocode?address=${encodeURIComponent(
       address
     )}&language=en`
 
@@ -29,7 +29,8 @@ export async function handler(event, context) {
     const data = await response.json()
 
     if (data.results) {
-      const searchResult = data.results[0].location
+      console.log(data.results)
+      const searchResult = data.results
 
       return {
         statusCode: 200,
@@ -50,9 +51,3 @@ export async function handler(event, context) {
   }
 }
 
-function formatString(str) {
-  return str
-    .split(' ')
-    .map((word, i) => (i === 0 ? word : '%20' + word))
-    .join('')
-}
