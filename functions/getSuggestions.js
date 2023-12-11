@@ -13,9 +13,9 @@ export async function handler(event, context) {
       }
     }
 
-    const apiUrl = `https://place-autocomplete1.p.rapidapi.com/autocomplete/json?input=${encodeURIComponent(formatString(
+    const apiUrl = `https://place-autocomplete1.p.rapidapi.com/autocomplete/json?input=${formatString(
       queryStr
-    ))}&radius=500`
+    )}&radius=500`
     // const apiUrl = 'https://place-autocomplete1.p.rapidapi.com/autocomplete/json?input=new&radius=500';
 
     const options = {
