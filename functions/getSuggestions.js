@@ -29,10 +29,10 @@ export async function handler(event, context) {
     const response = await fetch(apiUrl, options)
     const data = await response.json()
 
-    console.log(data)
+    console.log(response)
 
     if (data) {
-      console.log(data.predictions)
+      console.log(data)
       const searchResult = data.predictions.map((item) => {
         return {
           id: `${new Date().getTime()}-${Math.floor(Math.random() * 1000)}`,
