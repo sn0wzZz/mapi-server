@@ -3,8 +3,8 @@ import fetch from 'node-fetch'
 export async function handler(event, context) {
   try {
     console.log('Request body:', event.body)
-    // const { queryStr } = JSON.parse(event.body)
-    const { queryStr } = event.body
+    const { queryStr } = JSON.parse(event.body)
+    // const { queryStr } = event.body
 
     if (!queryStr) {
       return {
@@ -13,10 +13,10 @@ export async function handler(event, context) {
       }
     }
 
-    // const apiUrl = `https://place-autocomplete1.p.rapidapi.com/autocomplete/json?input=${encodeURIComponent(formatString(
-    //   queryStr
-    // ))}&radius=500`
-    const apiUrl = 'https://place-autocomplete1.p.rapidapi.com/autocomplete/json?input=new&radius=500';
+    const apiUrl = `https://place-autocomplete1.p.rapidapi.com/autocomplete/json?input=${encodeURIComponent(formatString(
+      queryStr
+    ))}&radius=500`
+    // const apiUrl = 'https://place-autocomplete1.p.rapidapi.com/autocomplete/json?input=new&radius=500';
 
     const options = {
       method: 'GET',
