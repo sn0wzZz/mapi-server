@@ -29,7 +29,7 @@ export async function handler(event, context) {
     const data = await response.json()
 
     if (data.results) {
-      console.log(data.results)
+      console.log(data.results[0])
       const searchResult = data.results
 
       return {
