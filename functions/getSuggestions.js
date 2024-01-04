@@ -1,4 +1,7 @@
 import fetch from 'node-fetch'
+import uuid from 'uuid'
+
+const suggestionId = uuid.v4()
 
 export async function handler(event, context) {
   try {
@@ -35,7 +38,7 @@ export async function handler(event, context) {
       console.log(data)
       const searchResult = data.predictions.map((item) => {
         return {
-          id: `${new Date().getTime()}-${Math.floor(Math.random() * 1000)}`,
+          id: suggestionId,
           name: item.description,
         }
       })
