@@ -13,7 +13,7 @@ export async function handler(event, context) {
       }
     }
 
-    const apiUrl = `https://trueway-geocoding.p.rapidapi.com/ReverseGeocode?location=${longitude}%2C%20${latitude}&language=en`
+    const apiUrl = `https://trueway-geocoding.p.rapidapi.com/ReverseGeocode?location=${latitude}%2C%20${longitude}&language=en`
 
     const options = {
       method: 'GET',
