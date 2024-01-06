@@ -8,7 +8,6 @@ const router = Router()
 import { handler as getStreetCoordsHandler } from './getStreetCoords.js'
 import { handler as getStreetInfoHandler } from './getStreetInfo.js'
 import { handler as getDirectionsHandler } from './getDirections.js'
-import { handler as getSuggestionsHandler } from './getSuggestions.js'
 
 app.use(express.json())
 
@@ -21,9 +20,6 @@ router.post('/getStreetInfo', getStreetInfoHandler)
 
 // Directions API
 router.post('/getDirections', getDirectionsHandler )
-
-// Suggestions API
-router.post('/getSuggestions', getSuggestionsHandler )
 
 if (process.env.NODE_ENV !== 'production') {
   const port = 3000
